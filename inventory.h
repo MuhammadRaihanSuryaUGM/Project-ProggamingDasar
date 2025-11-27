@@ -1,5 +1,5 @@
 // inventory.h
-// Header file untuk class inventory (TEXT FILE VERSION)
+// Header file untuk class inventory (TEXT FILE VERSION).
 
 #ifndef INVENTORY_H
 #define INVENTORY_H
