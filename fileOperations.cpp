@@ -45,9 +45,30 @@ vector<inventory> inventory::LoadSemuaData(const string &namaFile){
             getline(ss, kat, '|') && 
             getline(ss, stokStr))
         {
-            int id = stoi(idStr);
-            int stok = stoi(stokStr);
-            data.push_back(inventory(id, kode, nama, kat, stok));
+            // Trim whitespace
+            auto trim = [](const string &s)->string{
+                const auto strBegin = s.find_first_not_of(" \t\r\n");
+                if (strBegin == string::npos) return string();
+                const auto strEnd = s.find_last_not_of(" \t\r\n");
+                return s.substr(strBegin, strEnd - strBegin + 1);
+            };
+
+            idStr = trim(idStr);
+            stokStr = trim(stokStr);
+            kode = trim(kode);
+            nama = trim(nama);
+            kat = trim(kat);
+
+            // Validate numeric fields safely
+            try {
+                int id = stoi(idStr);
+                int stok = stoi(stokStr);
+                data.push_back(inventory(id, kode, nama, kat, stok));
+            } catch (const std::exception &e) {
+                // Skip malformed lines but notify user
+                cerr << "Peringatan: melewati baris tidak valid: '" << line << "' (" << e.what() << ")\n";
+                continue;
+            }
         }
     }
 
