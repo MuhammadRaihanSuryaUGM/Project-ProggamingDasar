@@ -1,3 +1,0 @@
-ID|KODE|NAMA|KATEGORI|STOK
-1|43452|Chitato|Makanan|40
-2|5425|Kaleng|Minuman|50
