@@ -15,7 +15,8 @@ int inventory::menu(){
     cout << "3. Tampilkan Barang\n";
     cout << "4. Ubah Barang\n";
     cout << "5. Hapus Barang\n";
-    cout << "6. Selesai\n";
+    cout << "6. Import dari file eksternal\n";
+    cout << "7. Selesai\n";
     cout << "Pilih menu : ";
     cin >> input;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -33,7 +34,7 @@ void inventory::tampil_menu(){
 
     while (true){
         int pilih = menu();
-        if (pilih == 6){
+        if (pilih == 7){
             // Save data sebelum keluar
             SaveSemuaData(data, namaFile);
             cout << "Data berhasil disimpan ke " << namaFile << "\n";
@@ -66,6 +67,20 @@ void inventory::tampil_menu(){
                 SaveSemuaData(data, namaFile); // Auto-save
                 TampilData(data);
                 break;
+            case 6: {
+                // Import dari file eksternal (file terletak di folder project ini)
+                cout << "Nama file eksternal (contoh: file.txt): ";
+                string namaEksternal;
+                getline(cin, namaEksternal);
+                if (namaEksternal.empty()){
+                    cout << "Nama file tidak boleh kosong.\n";
+                } else {
+                    ImportDariFile(namaEksternal, data);
+                    SaveSemuaData(data, namaFile);
+                    TampilData(data);
+                }
+                break;
+            }
             default:
                 cout << "Pilihan tidak valid!\n";
         }

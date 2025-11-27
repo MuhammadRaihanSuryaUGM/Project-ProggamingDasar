@@ -78,3 +78,37 @@ void inventory::SaveSemuaData(const vector<inventory> &data, const string &namaF
 
     file.close();
 }
+
+// Import data dari file eksternal (format sama dengan inventory.txt)
+void inventory::ImportDariFile(const string &namaFileEksternal, vector<inventory> &data){
+    // Load semua data dari file eksternal menggunakan fungsi yang sama
+    vector<inventory> ekst = LoadSemuaData(namaFileEksternal);
+
+    if (ekst.empty()){
+        cout << "Tidak ada data untuk diimpor dari " << namaFileEksternal << "\n";
+        return;
+    }
+
+    // Tentukan next ID
+    int nextId = data.empty() ? 1 : data.back().getId() + 1;
+    int processed = 0;
+
+    for (auto &item : ekst){
+        bool found = false;
+        for (auto &d : data){
+            if (d.getKode() == item.getKode() || d.getNama() == item.getNama()){
+                // jika duplikat menurut kode atau nama, tambahkan stok
+                d.setStok(d.getStok() + item.getStok());
+                found = true;
+                break;
+            }
+        }
+        if (!found){
+            item.setId(nextId++);
+            data.push_back(item);
+        }
+        processed++;
+    }
+
+    cout << "Import selesai: " << processed << " record diproses dari " << namaFileEksternal << "\n";
+}

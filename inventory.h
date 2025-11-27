@@ -37,6 +37,11 @@ public:
     // === File Operations (fileOperations.cpp) ===
     vector<inventory> LoadSemuaData(const string &namaFile);
     void SaveSemuaData(const vector<inventory> &data, const string &namaFile);
+    // Import data from an external text file into the current `data` vector.
+    // The external file is expected to use the same pipe-separated format
+    // (ID|KODE|NAMA|KATEGORI|STOK). Duplicates (matching kode or nama)
+    // will increase stok instead of creating a duplicate item.
+    void ImportDariFile(const string &namaFileEksternal, vector<inventory> &data);
 
     // === CRUD Operations (crudOperations.cpp) ===
     void tambahdata(vector<inventory> &data);
