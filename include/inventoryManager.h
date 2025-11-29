@@ -3,17 +3,24 @@
 
 #include <vector>
 #include "Barang.h"
+#include "FileManager.h"
 using namespace std;
 
 class InventoryManager {
 private:
     vector<Barang> data;
+    FileManager filemgr;
+    int lastId;
     
-    int getLastId() const;
+    int getNextId();
 
 public:
     vector<Barang>& getData() {
         return data;
+    }
+    
+    void setLastId(int id) {
+        lastId = id;
     }
 
     void tampilData();

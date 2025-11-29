@@ -12,6 +12,9 @@ public:
     void loadData(string file, vector<Barang>& data);
     void saveData(string file, vector<Barang>& data);
     void importData(string fileEksternal, vector<Barang>& data);
+    
+    int loadLastId();
+    void saveLastId(int lastId);
 };
 
 #endif

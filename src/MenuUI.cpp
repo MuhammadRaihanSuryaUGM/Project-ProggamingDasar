@@ -9,15 +9,15 @@ void MenuUI::tampilMenu() {
     cout << "3. Barang Keluar\n";
     cout << "4. Ubah Barang\n";
     cout << "5. Hapus Barang\n";
-    cout << "6. Save Data\n";
-    cout << "7. Import Data\n";
-    cout << "8. Exit\n";
+    cout << "6. Import Data\n";
+    cout << "7. Exit\n";
     cout << "Pilih: ";
 }
 
 void MenuUI::jalankan() {
     int pilih;
     filemgr.loadData("data/inventory.txt", manager.getData());
+    manager.setLastId(filemgr.loadLastId());
 
     while (true) {
         tampilMenu();
@@ -30,9 +30,8 @@ void MenuUI::jalankan() {
         case 3: manager.keluarkanBarang(); break;
         case 4: manager.ubahBarang(); break;
         case 5: manager.hapusBarang(); break;
-        case 6: filemgr.saveData("data/inventory.txt", manager.getData()); break;
-        case 7: filemgr.importData("data/import.txt", manager.getData()); break;
-        case 8: return;
+        case 6: filemgr.importData("data/import.txt", manager.getData()); break;
+        case 7: return;
         }
     }
 }

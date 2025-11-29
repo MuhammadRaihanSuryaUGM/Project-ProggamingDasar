@@ -120,4 +120,28 @@ void FileManager::importData(string fileEksternal, vector<Barang>& data) {
     
     cout << "Import selesai: " << imported << " barang baru ditambahkan, "
          << merged << " barang diperbarui stoknya.\n";
+    saveData("data/inventory.txt", data);
+}
+
+int FileManager::loadLastId() {
+    ifstream in("data/lastId.txt");
+    if (!in) {
+        return 0;  // Default if file doesn't exist
+    }
+    
+    int lastId = 0;
+    in >> lastId;
+    in.close();
+    return lastId;
+}
+
+void FileManager::saveLastId(int lastId) {
+    ofstream out("data/lastId.txt");
+    if (!out) {
+        cerr << "Error: Cannot write to file: data/lastId.txt\n";
+        return;
+    }
+    
+    out << lastId;
+    out.close();
 }
