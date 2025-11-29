@@ -145,7 +145,7 @@ void inventory::HapusData(vector<inventory> &data){
 
     data.erase(it);
     
-    // Re-assign ID secara berurutan
+    
     int newId = 1;
     for (auto &item : data){
         item.setId(newId++);
